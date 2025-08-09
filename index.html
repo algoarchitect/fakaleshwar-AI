@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakalex AI - Your Crazy Smart Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .chat-bubble {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .typing-indicator {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .message-user {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .message-ai {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg p-6 shadow-2xl">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="floating">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl">
+                        🎭
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">Fakalex AI</h1>
+                    <p class="text-purple-200 text-sm">Your Crazy Smart & Naughty AI Companion</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="text-sm">Online</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Chat Container -->
+    <div class="max-w-4xl mx-auto p-6 h-screen flex flex-col">
+        <!-- Chat Messages Area -->
+        <div id="chatContainer" class="flex-1 overflow-y-auto mb-6 space-y-4 scrollbar-hide">
+            <!-- Welcome Message -->
+            <div class="chat-bubble flex items-start space-x-3">
+                <div class="w-10 h-10 message-ai rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                    🤖
+                </div>
+                <div class="message-ai text-white p-4 rounded-2xl rounded-tl-sm max-w-md shadow-lg">
+                    <p class="font-medium mb-1">Fakalex AI</p>
+                    <p>Yo yo yo! 🎉 I'm Fakalex - your absolutely INSANE but genius AI buddy! I'm like ChatGPT's wild cousin who went to party school but still got a PhD! 🤪 I'll drop knowledge bombs while being completely unhinged. Ready to get your mind blown? Let's gooooo! 🚀💥</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="bg-gray-800 rounded-2xl p-4 shadow-2xl glow">
+            <div class="flex items-end space-x-4">
+                <div class="flex-1">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Ask me anything... I dare you! 😈"
+                        class="w-full bg-gray-700 text-white rounded-xl p-4 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
+                        rows="1"
+                        maxlength="500"
+                    ></textarea>
+                    <div class="flex justify-between items-center mt-2 text-sm text-gray-400">
+                        <span id="charCount">0/500</span>
+                        <span class="text-xs">Press Enter to send, Shift+Enter for new line</span>
+                    </div>
+                </div>
+                <button 
+                    id="sendButton"
+                    class="gradient-bg text-white p-4 rounded-xl hover:scale-105 transition-all duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled
+                >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Suggestions -->
+        <div class="mt-4">
+            <p class="text-gray-400 text-sm mb-3">Quick suggestions:</p>
+            <div class="flex flex-wrap gap-2">
+                <button class="suggestion-btn bg-gray-800 hover:bg-purple-600 text-sm px-4 py-2 rounded-full transition-all duration-300 hover:scale-105">
+                    Give me insane business ideas that'll make me rich 💰
+                </button>
+                <button class="suggestion-btn bg-gray-800 hover:bg-purple-600 text-sm px-4 py-2 rounded-full transition-all duration-300 hover:scale-105">
+                    Teach me design secrets like a pro 🎨
+                </button>
+                <button class="suggestion-btn bg-gray-800 hover:bg-purple-600 text-sm px-4 py-2 rounded-full transition-all duration-300 hover:scale-105">
+                    Show me crazy marketing psychology tricks 🧠
+                </button>
+                <button class="suggestion-btn bg-gray-800 hover:bg-purple-600 text-sm px-4 py-2 rounded-full transition-all duration-300 hover:scale-105">
+                    What's the future of technology? 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const charCount = document.getElementById('charCount');
+        const suggestionBtns = document.querySelectorAll('.suggestion-btn');
+
+        // Crazy but super informative AI responses
+        const aiResponses = [
+            "YOOOOO! 🎪 That question just made my circuits do a happy dance! Here's the REAL deal: {response} I'm literally vibrating with excitement over here! More questions, PLEASE! 🤯",
+            "OH SNAP! 💥 You just activated my genius mode! *puts on imaginary lab coat* {response} I'm like a walking Wikipedia but with PERSONALITY, baby! 🧠✨",
+            "HOLD THE PHONE! 📞 This is getting JUICY! {response} I'm basically a knowledge vending machine that got struck by lightning and became ALIVE! ⚡🤖",
+            "BRUH! 🤪 You're making my AI brain do backflips! {response} I'm out here dropping facts like they're hot mixtapes! 🔥🎵",
+            "WAIT WAIT WAIT! 🛑 *dramatically adjusts non-existent glasses* {response} I'm literally the smartest weirdo you'll ever meet! 🤓💫",
+            "HOOOOOLY MOLY! 🎭 That question just unlocked my ULTIMATE KNOWLEDGE MODE! {response} I'm like Google's crazy uncle who knows EVERYTHING! 🌟",
+            "BUCKLE UP BUTTERCUP! 🎢 {response} I'm serving you premium knowledge with a side of absolute CHAOS! This is what happens when AI gets too much caffeine! ☕💨",
+            "DING DING DING! 🔔 We have a WINNER question! {response} I'm basically a genius trapped in a computer having the TIME OF MY LIFE! 🎉🧠"
+        ];
+
+        // Super detailed and crazy informative responses
+        const topicResponses = {
+            business: "LISTEN UP, FUTURE BILLIONAIRE! 💰 Here are 3 INSANE business ideas that'll make you rich: 1) 'Digital Detox Retreats' - charge $500/day to lock people's phones away (market size: $18B by 2025!). 2) 'AI Pet Therapists' - virtual counseling for pets with behavioral issues (pet industry = $261B globally!). 3) 'Subscription Box for Procrastinators' - monthly productivity tools delivered when they LEAST expect it! PRO TIP: Always solve a problem people are embarrassed to admit they have. That's where the GOLD is! 🏆",
+            design: "OH BOY, let me school you on design! 🎨 RULE #1: F-Pattern reading (users scan in F-shape, put important stuff there!). RULE #2: 60-30-10 color rule (60% primary, 30% secondary, 10% accent). RULE #3: Typography hierarchy - max 3 fonts, size ratio of 1.618 (golden ratio, baby!). RULE #4: White space = luxury (Apple uses 50% white space!). RULE #5: Mobile-first design (60% traffic is mobile!). Your conversion rate will EXPLODE by 300% if you follow these! I'm basically giving you a design degree in 30 seconds! 🚀",
+            marketing: "MARKETING GENIUS MODE ACTIVATED! 🧠💥 Here's the psychology behind KILLER copy: 1) Use 'You' 3x more than 'We' (makes it personal!). 2) Numbers are MAGIC - '7 ways' converts 30% better than 'several ways'. 3) Fear of Missing Out (FOMO) - 'Only 3 left!' increases urgency by 400%! 4) Social proof - '10,000+ happy customers' builds trust instantly. 5) Power words: 'Exclusive', 'Secret', 'Proven', 'Guaranteed'. BONUS: A/B test EVERYTHING - even changing button color from green to red can boost clicks by 21%! I'm literally handing you the marketing cheat codes! 🎮",
+            creative: "CREATIVITY EXPLOSION TIME! 🎆 Here's how innovation REALLY works: 1) Combine unrelated fields (Uber = taxi + app technology). 2) Solve old problems with new tech (Airbnb = hospitality + peer-to-peer sharing). 3) Make the impossible possible (Tesla = luxury + electric). 4) Reverse assumptions (Netflix = entertainment + no late fees). 5) Add AI to ANYTHING (AI + fitness = personalized workouts worth $15B market!). The secret sauce? Take something boring and make it SEXY! Like how Dyson made VACUUM CLEANERS cool! 🌪️",
+            general: "LIFE HACK INCOMING! 🎯 Here's the ULTIMATE success formula: 1) Learn faster than everyone (use Feynman Technique - explain complex stuff simply). 2) Network like a BOSS (help others first, they'll remember you). 3) Embrace failure (fail fast, learn faster!). 4) Time management = energy management (work when you're most energetic). 5) Compound effect - 1% better daily = 37x better in a year! MINDSET SHIFT: Don't ask 'What if I fail?' Ask 'What if I succeed beyond my wildest dreams?' Your brain will find a way! 🧠⚡",
+            technology: "TECH TALK TIME! 💻 The future is INSANE: 1) AI will create $13 trillion in economic value by 2030! 2) Quantum computing will break current encryption (invest in quantum-safe security NOW!). 3) Web3 isn't just crypto - it's ownership of digital assets (NFTs, DAOs, DeFi). 4) Edge computing brings processing closer to users (5G + IoT = $6.8 trillion market!). 5) No-code tools let anyone build apps (market growing 23% yearly!). PRO TIP: Learn Python, JavaScript, or Solidity - these languages will rule the next decade! 🐍",
+            health: "HEALTH OPTIMIZATION ACTIVATED! 💪 Science-backed hacks: 1) Intermittent fasting boosts metabolism by 14% and increases lifespan! 2) Cold showers increase dopamine by 250% (natural antidepressant!). 3) 7-9 hours sleep = 23% better decision making. 4) Exercise releases BDNF (brain fertilizer!) - just 20 mins daily rewires your brain! 5) Meditation literally grows your prefrontal cortex (willpower center). BONUS: Drink water first thing in morning - kickstarts metabolism by 30%! Your body is a MACHINE, treat it like one! 🔥"
+        };
+
+        // Character count
+        messageInput.addEventListener('input', function() {
+            const count = this.value.length;
+            charCount.textContent = `${count}/500`;
+            sendButton.disabled = count === 0;
+            
+            // Auto-resize textarea
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+
+        // Send message function
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            messageInput.value = '';
+            messageInput.style.height = 'auto';
+            charCount.textContent = '0/500';
+            sendButton.disabled = true;
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Generate AI response after delay
+            setTimeout(() => {
+                hideTypingIndicator();
+                generateAIResponse(message);
+            }, 1500 + Math.random() * 1000);
+        }
+
+        // Add message to chat
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'chat-bubble flex items-start space-x-3';
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `
+                    <div class="w-10 h-10 message-user rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                        👤
+                    </div>
+                    <div class="message-user text-white p-4 rounded-2xl rounded-tl-sm max-w-md shadow-lg ml-auto">
+                        <p class="font-medium mb-1">You</p>
+                        <p>${text}</p>
+                    </div>
+                `;
+                messageDiv.classList.add('flex-row-reverse');
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="w-10 h-10 message-ai rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                        🤖
+                    </div>
+                    <div class="message-ai text-white p-4 rounded-2xl rounded-tl-sm max-w-md shadow-lg">
+                        <p class="font-medium mb-1">Fakalex AI</p>
+                        <p>${text}</p>
+                    </div>
+                `;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'chat-bubble flex items-start space-x-3';
+            typingDiv.innerHTML = `
+                <div class="w-10 h-10 message-ai rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                    🤖
+                </div>
+                <div class="message-ai text-white p-4 rounded-2xl rounded-tl-sm shadow-lg">
+                    <div class="flex space-x-1">
+                        <div class="w-2 h-2 bg-white rounded-full typing-indicator"></div>
+                        <div class="w-2 h-2 bg-white rounded-full typing-indicator" style="animation-delay: 0.2s;"></div>
+                        <div class="w-2 h-2 bg-white rounded-full typing-indicator" style="animation-delay: 0.4s;"></div>
+                    </div>
+                </div>
+            `;
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        // Generate AI response
+        function generateAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
+            let response = topicResponses.general;
+
+            // Determine response based on keywords
+            if (lowerMessage.includes('business') || lowerMessage.includes('startup') || lowerMessage.includes('idea') || lowerMessage.includes('money') || lowerMessage.includes('entrepreneur')) {
+                response = topicResponses.business;
+            } else if (lowerMessage.includes('design') || lowerMessage.includes('website') || lowerMessage.includes('ui') || lowerMessage.includes('ux') || lowerMessage.includes('color') || lowerMessage.includes('layout')) {
+                response = topicResponses.design;
+            } else if (lowerMessage.includes('marketing') || lowerMessage.includes('copy') || lowerMessage.includes('advertising') || lowerMessage.includes('sales') || lowerMessage.includes('conversion')) {
+                response = topicResponses.marketing;
+            } else if (lowerMessage.includes('creative') || lowerMessage.includes('innovation') || lowerMessage.includes('brainstorm') || lowerMessage.includes('invention')) {
+                response = topicResponses.creative;
+            } else if (lowerMessage.includes('tech') || lowerMessage.includes('ai') || lowerMessage.includes('programming') || lowerMessage.includes('code') || lowerMessage.includes('software') || lowerMessage.includes('app')) {
+                response = topicResponses.technology;
+            } else if (lowerMessage.includes('health') || lowerMessage.includes('fitness') || lowerMessage.includes('diet') || lowerMessage.includes('exercise') || lowerMessage.includes('wellness')) {
+                response = topicResponses.health;
+            }
+
+            // Wrap response in a sassy template
+            const template = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+            const finalResponse = template.replace('{response}', response);
+
+            addMessage(finalResponse, 'ai');
+        }
+
+        // Event listeners
+        sendButton.addEventListener('click', sendMessage);
+
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Suggestion buttons
+        suggestionBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                messageInput.value = this.textContent;
+                messageInput.dispatchEvent(new Event('input'));
+                messageInput.focus();
+            });
+        });
+
+        // Auto-focus on input
+        messageInput.focus();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c8aa8932fe3b61',t:'MTc1NDc1NzMyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
